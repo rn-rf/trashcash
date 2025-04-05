@@ -1,13 +1,7 @@
 from flask import Flask, render_template, request, jsonify, session
 from flasgger import Swagger
 import lib
-class Person:
-    def __init__(self, name, pwd):
-        self.name = name
-        self.pwd = pwd
 
-    def greet(self):
-        return f"Hello, my name is {self.name} and Password is {self.pwd}"
 app = Flask(__name__)
 Swagger(app)
 app.secret_key = "6a94b15e9b77f948e3f82f7fa4c5c58a8c01acb510298cc0cc85e798ba2575d0"
