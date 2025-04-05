@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="icon" href="static/logo.ico">
+    <style>
+        * {
+            margin: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        body {
+            min-height: 100vh;
+        }
+        .body-wrapper {
+            display: flex;
+        }
+        .aside {
+            flex: 2;
+            background-color: #000;
+            min-height: 100vh;
+        }
+        .main {
+            flex: 3;
+            min-height: 100vh;
+        }
+        .login {
+            max-width: 400px;
+            min-height: 550px;
+            margin: auto;
+            margin-top: 150px;            
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        input {
+            padding: .7em 1.2em;
+            border-radius: 10px;
+            border: solid #999 1px;
+            width: 100%;
+        }
+        .options {
+            display: flex;
+        }
+        .option-child {
+            width: fit-content;
+        }
+        .spacer {
+            flex: 1;
+        }
+        .flex {
+            display: flex;
+        }
+        .input-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .text {
+            font-weight: 700;
+        }
+
+
+
+        .button {
+            width: 100%;
+            border-radius: 9px;
+            padding: .7em;
+            background-color: rgb(88, 255, 88);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: rgba(88, 255, 88, 0.779);
+        }
+        .title {
+            font-size: x-large;
+            font-weight: 600;
+        }
+        .subtitle {
+            color: #999;
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="body-wrapper">
+        <a class="aside styleless" href="/"></a>
+        <div class="main">
+            <form id="login" class="login">
+                <div class="title-wrapper">
+                    <div class="title">Login</div>
+                    <div class="subtitle">Welcome back! Please log in to your account</div>
+                </div>
+                <div class="input-wrapper">
+                    <div class="input-title">Username</div>
+                    <input id="username" type="text" placeholder="username@gmail.com">
+                </div>
+                <div class="input-wrapper">
+                    <div class="input-title">Password</div>
+                    <input id="password" type="password" placeholder=". . . . . . . . . . . .">
+                </div>
+                <div class="options">
+                    <!-- <div class="option-child flex">
+                        <input id="remember-me" type="checkbox">
+                        <label for="">&nbsp;Remember&nbsp;me</label>
+                    </div> -->
+                    <div class="spacer"></div>
+                    <div class="option-child"><a href="signup.html" class="subtitle">Forgot Password?</a></div>
+                </div>
+                <button class="button" type="submit">
+                    <div class="text">Login</div>
+                </button>
+                <div class="extra"> <span class="subtitle">New User?</span> <a href="signup">Signup</a></div>
+            </form>
+        </div>
+    </div>
+    <script src="/static/login.js"></script>
+</body>
+</html>
