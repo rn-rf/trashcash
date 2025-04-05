@@ -26,4 +26,23 @@
 
 ## 📁 Project Structure
 
-<pre><code> 📦 trashcash/ ├── 📁 static/ # CSS, JS, images │ ├── css/ │ │ └── global.css │ ├── index.js │ ├── login.js │ └── logo.ico │ ├── 📁 templates/ # HTML templates for Flask │ ├── login.html │ └── signup.html │ ├── 📁 instance/ # Contains SQLite DB (Flask default) │ └── db.sqlite │ ├── app.py # Main Flask application ├── bin.py # Possibly CLI logic or entry script ├── lib.py # Helper functions for items, pickups, etc. ├── users.db # Another SQLite DB? ├── recycling.db # Item/pickup data storage? ├── README.md # Project info and instructions └── requirements.txt # Python dependencies</code></pre>
+<pre><code> 
+📦 trashcash
+├── 📁 static
+│   ├── css
+│   │   └── global.css 
+│   ├── index.js  
+│   ├── login.js 
+│   └── logo.ico 
+├── 📁 templates
+│   ├── login.html 
+│   └── signup.html 
+│── 📁 instance
+│   └── db.sqlite
+├── app.py 
+├── bin.py 
+├── lib.py 
+├── users.db 
+├── recycling.db 
+└── README.md 
+</code></pre>
