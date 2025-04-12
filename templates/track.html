@@ -1,0 +1,111 @@
+{% extends 'dashboard.html' %}
+
+{% block title %}
+
+    Track
+
+{% endblock %}
+
+
+{% block style %}
+
+<style>
+    .form-container {
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+        border-radius: 12px;
+        padding: 30px;
+        max-width: 700px;
+        margin: auto;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      }
+    
+      .form-title {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 1.8rem;
+        font-weight: bold;
+      }
+    
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+    
+      .form-group {
+        display: flex;
+        flex-direction: column;
+      }
+    
+      label {
+        margin-bottom: 6px;
+        font-weight: 500;
+      }
+    
+      input, select {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 1rem;
+      }
+    
+      .form-actions {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 30px;
+        gap: 15px;
+      }
+    
+      @media (max-width: 600px) {
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+    
+        .form-actions {
+          flex-direction: column;
+          align-items: stretch;
+        }
+      }
+        </style>
+
+{% endblock %}
+
+{% block page__body %}
+  
+<div class="section">
+    <div class="section__head">
+        <h2>Menu</h2>
+    </div>
+    <div class="section__body">
+        <a href="/schedule" class="tile link">
+            <div class="tile__text">
+                <img src="{{ url_for('static', filename='event.png') }}" alt="">
+                <h3 class="tile__title">Schedule</h3>
+            </div>
+        </a>
+        <a href="address" class="tile link">
+            <div class="tile__text">
+                <img src="{{ url_for('static', filename='address.png') }}" alt="">
+                <h3 class="tile__title">Address</h3>
+            </div>
+        </a>
+        <a href="history" class="tile link">
+            <div class="tile__text">
+                <img src="{{ url_for('static', filename='history.png') }}" alt="">
+                <h3 class="tile__title">History</h3>
+            </div>
+        </a>
+    </div>
+</div>
+<div class="section">
+    <div class="section__head">
+        <h2>Track</h2>
+    </div>
+    <div class="section__body--no-flex ">
+        <div class="list">
+          Still in work . . .
+        </div>
+    </div>
+</div>
+{% endblock %}

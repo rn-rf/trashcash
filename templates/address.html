@@ -1,0 +1,255 @@
+{% extends 'dashboard.html' %}
+
+{% block title %}
+
+    Address
+
+{% endblock %}
+
+
+{% block style %}
+
+<style>
+    .form-container {
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(10px);
+        border-radius: 12px;
+        padding: 30px;
+        max-width: 700px;
+        margin: auto;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      }
+    
+      .form-title {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 1.8rem;
+        font-weight: bold;
+      }
+    
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+    
+      .form-group {
+        display: flex;
+        flex-direction: column;
+      }
+    
+      label {
+        margin-bottom: 6px;
+        font-weight: 500;
+      }
+    
+      input, select {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 1rem;
+      }
+    
+      .form-actions {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 30px;
+        gap: 15px;
+      }
+    
+      @media (max-width: 600px) {
+        .form-grid {
+          grid-template-columns: 1fr;
+        }
+    
+        .form-actions {
+          flex-direction: column;
+          align-items: stretch;
+        }
+      }
+        </style>
+
+{% endblock %}
+
+{% block page__body %}
+  
+<!-- <div class="section">
+    <div class="section__head">
+        <h2>Dashboard</h2>
+    </div>
+    <div class="section__body">
+        <a href="/schedule" class="tile link">
+            <div class="tile__text">
+                <img src="{{ url_for('static', filename='event.png') }}" alt="">
+                <h3 class="tile__title">Schedule</h3>
+            </div>
+        </a>
+        <a href="track" class="tile link">
+            <div class="tile__text">
+                <img src="{{ url_for('static', filename='tracking.png') }}" alt="">
+                <h3 class="tile__title">Track</h3>
+            </div>
+        </a>
+        <a href="history" class="tile link">
+            <div class="tile__text">
+                <img src="{{ url_for('static', filename='history.png') }}" alt="">
+                <h3 class="tile__title">History</h3>
+            </div>
+        </a>
+    </div>
+</div> -->
+<div class="section">
+    <div class="section__head">
+        <h2>Address</h2>
+    </div>
+    <div class="section__body--no-flex ">
+        <div class="list--">
+            <form id="form">
+                <div class="form-grid">
+                <div class="form-group">
+                    <label for="fullname">Full Name</label>
+                    <input type="text" id="fullname" name="fullname" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone No</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="street">Street</label>
+                    <input type="text" id="street" name="street" required>
+                </div>
+                <div class="form-group">
+                    <label for="pincode">Pincode</label>
+                    <input type="text" id="pincode" name="pincode" required>
+                </div>
+                <div class="form-group">
+                    <label for="role">Role</label>
+                    <select id="role" name="role" required>
+                    <option value="">Select Role</option>
+                    <option value="individual">Individual</option>
+                    <option value="committee">Committee</option>
+                    <option value="institute">Institute</option>
+                    </select>
+                </div>
+                </div>
+                <div class="form-actions">
+                <button type="button"  class="button--mono bold"><a class="link" href="schedule">Pickup</a></button>
+                <button type="submit" class="button bold">Submit</button>
+                </div>
+            </form>
+        </div>    
+    </div>
+</div>
+<div class="section">
+  <div class="section__head">
+      <h2>Address List</h2>
+  </div>
+  <div class="section__body">
+    <div class="list scrollable-div" id="address_list">
+        No Address Added
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+{% block js %}
+<script>
+let appState = {
+    user: null,
+    role: null,
+    addresses: [],
+    pickups: [],
+    items: []  
+}
+
+async function load() {
+    try {
+        const response = await fetch('/load');
+        const data = await response.json();
+        appState.items = data.items;
+        appState.pickups = data.pickups;
+        appState.addresses = data.addresses;
+        appState.user = data.user;
+        // appState.role = data.role;
+        renderAddressTable(); 
+    } catch (error) {
+        console.error('Failed to load items:', error);
+    }
+}
+
+
+document.getElementById('form').addEventListener("submit", function (e) {
+    e.preventDefault();
+    const name = document.getElementById('fullname').value;
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value;
+    const street = document.getElementById('street').value;
+    const role = document.getElementById('role').value;
+    const pincode = document.getElementById('pincode').value;
+
+
+    fetch("/create_address", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ 'name': name, 'email': email, 'phone': phone, 'street': street, 'role': role, 'pincode': pincode })
+    })
+    .then(res => res.json())
+    .then(response => {
+        alert(response.message || "Address Added successful!");
+        form.reset();
+        load();
+    })
+    .catch(error => {
+        console.error("Signup error:", error);
+        alert("An error occurred during adding address.");
+    });
+
+});
+
+function renderAddressTable() {
+  const addresses = appState.addresses;
+  const container = document.getElementById('address_list');
+  
+  const tableHTML = `
+    <table class="address-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Street</th>
+          <th>Pincode</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Account Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${addresses.map(address => `
+          <tr>
+            <td>${address.name}</td>
+            <td>${address.street}</td>
+            <td>${address.pincode}</td>
+            <td>${address.email}</td>
+            <td>${address.phone_number}</td>
+            <td>${address.role}</td>
+          </tr>
+        `).join('')}
+      </tbody>
+    </table>
+  `;
+
+  container.innerHTML = tableHTML;
+}
+   
+window.addEventListener('DOMContentLoaded', () => {
+    load();
+});
+</script>
+
+{% endblock %}

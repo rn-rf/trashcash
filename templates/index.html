@@ -9,200 +9,184 @@
     <style>
         * {
             margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-        .accent {
+            font-family: Arial, Helvetica, sans-serif; }
+
+        .page {
             display: flex;
             flex-direction: column;
             background: #fff;
-            min-height: 100vh;
-        }
-        .head {
-            min-height: 50px;
-        }
-        .body {
-            flex: 1;
-            display: flex;
-        }
-        .head {
+            min-height: 100dvh; }
+
+        .page__body {
+        flex: 1;
+        display: flex; }
+
+        .page__head {
             margin: 30px;
             display: flex;
             gap: 30px;
             justify-content: center;
-            align-items: center;
-        }
+            min-height: 50px;
+            align-items: center; }
+
         .menu {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            align-items: center;
-        }
-        .menu-child {
-            cursor: pointer;
-        }
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        align-items: center; }
+
+        .menu__item {
+            cursor: pointer; }
+
         .buttons{
             display: flex;
             gap: 10px;
-            font-weight: 800;
-            /* justify-content: center;
-            align-items: center; */
-        }
+            font-weight: 800;}
 
-        .button-child {
+        .button {
             color:#000;
             box-sizing: border-box;
             border-radius: 10px;
             padding: .5em 1em;
             background-color: #18ab29;
             cursor: pointer;
-            border-color:#18ab29;
-        }
+            border-color:#18ab29; }
 
-        .button-child:hover {
-            background: #5cbf2a
-        }
+        .button:hover {
+        background: #5cbf2a }
 
-        .button-child-mono {
+        .button--mono {
             color:#000;
             box-sizing: border-box;
             border-radius: 10px;
             padding: .4em .8em;
             background-color: #fff;
             border: #fff 2px solid;
-            cursor: pointer;
-        }
+            cursor: pointer; }
 
-        .button-child-mono:hover {
-            border: #000 2px solid;
-        }
-
-        .button-child-accent {
-            color:#fff;
-            box-sizing: border-box;
-            border-radius: 10px;
-            padding: .4em .8em;
-            background-color: #ec1da3;
-            cursor: pointer;
-            border: #000 2px solid;
-        }
-
-        .button-child-accent:hover {
-            background-color: #ec1da3c2;
-            border-color:#ec1da3c2;
-        }
-         
-        .banner {
-            background-color: #000;
-            color: #e0e0e0;
-            margin: 30px;
-            box-sizing: border-box;
-            border-radius: 30px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-        .title {
-            font-size: 50px;
+        .bold {
             font-weight: 900;
         }
-        .subtitle {
-            font-weight: 100;
-        }
-        .content {
-            display: flex;
-            flex-direction: column;
-            max-width: 450px;
-            padding: 40px;
-            gap: 10px;
-        }
-        .blank {
-            flex: 1;
-        }
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            flex: 1;
-        }
-        .log {
-            width: 40px;
-            height: 40px;
-        }
-        .styleless {
-            color: inherit;
-            text-decoration: none;
-        }
 
-        .menu-child:hover {
-            color: #555;
-        }
 
-        .menu-hover {
-            width: 450px;
-            max-width: 450px;
-            min-height: 250px;
-            float: inline-end;
-            position: absolute;
-            background-color: #fff;
-            border: #000 2px solid;
-            border-radius: 10px;
-            top: 10%;
-            display: none;
+        .button--mono:hover {
+        border: #000 2px solid; }
+
+        .button--accent {
+        color:#fff;
+        box-sizing: border-box;
+        border-radius: 10px;
+        padding: .4em .8em;
+        background-color: #ec1da3;
+        cursor: pointer;
+        border: #000 2px solid; }
+
+        .button--accent:hover {
+        background-color: #ec1da3c2;
+        border-color:#ec1da3c2; }
+
+        .hero {
+        background-color: #000;
+        color: #e0e0e0;
+        margin: 30px;
+        box-sizing: border-box;
+        border-radius: 30px;
+        flex: 1;
+        display: flex;
+        flex-direction: column; }
+
+        .hero__title {
+        font-size: 50px;
+        font-weight: 900; }
+
+        .hero__subtitle {
+        font-weight: 100; }
+
+        .hero__content {
+        display: flex;
+        flex-direction: column;
+        max-width: 450px;
+        padding: 40px;
+        gap: 10px; }
+
+        .hero__spacer {
+        flex: 1; }
+
+        .logo {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        flex: 1; }
+
+        .logo__image {
+        width: 40px;
+        height: 40px; }
+
+        .link {
+        color: inherit;
+        text-decoration: none; }
+        
+        @media (max-width: 600px) {
+            .menu {
+                display: none;
+            }
+            .hero {
+                margin: 0;
+                border-radius: 0;
+            }
+            .page,
+            .page__head {
+                color: white;
+                background-color: #000;
+            }
         }
     </style>
     {% endblock %}
 </head>
 <body>
-    <div class="accent">
-        <div class="head">
-            <div class="logo-container">
-                <img src="/static/logo.png" alt="logo" class="log">
-                <h1 class="logo"> TrashCash</h1>
+    <div class="page">
+        <div class="page__head">
+            <div class="logo">
+                <img src="/static/logo.png" alt="logo" class="logo__image">
+                <h1 class="logo__text"> TrashCash</h1>
             </div>
             <div class="menu">
-                <div class="menu-child" id="rec">For Recyclers &#128899;</div>
-                <div class="menu-hover" id="recshow"></div>
-                <div class="menu-child" id="buy">For Buyers &#128899;</div>
-                <div class="menu-hover" id="buyshow"></div>
-                <div class="menu-child">
-                    <a href="howwework" class="styleless">How we work?</a>
+                <div class="menu__item">
+                    <a href="howwework" class="link">How we work?</a>
                 </div>
-                <div class="menu-child">
-                    <a href="aboutus" class="styleless">About us</a>
+                <div class="menu__item">
+                    <a href="aboutus" class="link">About us</a>
                 </div>
             </div>
-            <div class="buttons">
-                <div class="button-child-accent">
-                    <a href="signup" class="styleless">Sign-up</a>
+            <div class="menu">
+                <div class="button--accent bold">
+                    <a href="signup" class="link">Sign-up</a>
                 </div>
-                <div class="button-child-mono">
-                    <a href="login" class="styleless">Login</a>
+                <div class="button--mono bold">
+                    <a href="login" class="link">Login</a>
                 </div>
             </div>
         </div>
-        <div class="body">
-            <div class="banner">
-                <div class="blank"></div>
-                <div class="content">
-                    <h1 class="title">Recycle & Earn Rewards!</h1>
-                    <div class="subtitle">Get paid for being eco-friendly. Exchange recyclables for real money or discounts</div>
+        <div class="page__body">
+            <div class="hero">
+                <div class="hero__spacer"></div>
+                <div class="hero__content">
+                    <h1 class="hero__title">Recycle & Earn Rewards!</h1>
+                    <div class="hero__subtitle">Get paid for being eco-friendly. Exchange recyclables for real money or discounts</div>
                     <div class="buttons">
-                        <div class="button-child">I am Individual</div>
-                        <div class="button-child">I am Business</div>
+                        <div class="button bold">
+                            <a href="signup" class="link">Sign-up</a>
+                        </div>
+                        <div class="button bold">
+                            <a href="login" class="link">Login</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <script>
-        document.getElementById("rec").addEventListener("click", function () {
-            let element = document.getElementById("recshow");
-            element.style.display = element.style.display === "block" ? "none" : "block";
-        });
-        document.getElementById("buy").addEventListener("click", function () {
-            let element = document.getElementById("buyshow");
-            element.style.display = element.style.display === "block" ? "none" : "block";
-        });
+
     </script>
 </body>
 </html>

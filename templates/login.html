@@ -12,7 +12,7 @@
             font-family: Arial, Helvetica, sans-serif;
         }
         body {
-            min-height: 100vh;
+            min-height: 100dvh;
         }
         .body-wrapper {
             display: flex;
@@ -20,11 +20,11 @@
         .aside {
             flex: 2;
             background-color: #000;
-            min-height: 100vh;
+            min-height: 100dvh;
         }
         .main {
             flex: 3;
-            min-height: 100vh;
+            min-height: 100dvh;
         }
         .login {
             max-width: 400px;
@@ -85,7 +85,14 @@
             color: #999;
             text-decoration: none;
         }
-
+        @media (max-width: 600px) {
+            .aside {
+                display: none;
+            }
+            .main {
+                padding: 5vw;
+            }
+        }
     </style>
 </head>
 <body>
@@ -99,17 +106,14 @@
                 </div>
                 <div class="input-wrapper">
                     <div class="input-title">Username</div>
-                    <input id="username" type="text" placeholder="username@gmail.com">
+                    <input id="username" type="email" placeholder="username@gmail.com">
                 </div>
                 <div class="input-wrapper">
                     <div class="input-title">Password</div>
                     <input id="password" type="password" placeholder=". . . . . . . . . . . .">
                 </div>
                 <div class="options">
-                    <!-- <div class="option-child flex">
-                        <input id="remember-me" type="checkbox">
-                        <label for="">&nbsp;Remember&nbsp;me</label>
-                    </div> -->
+
                     <div class="spacer"></div>
                     <div class="option-child"><a href="signup.html" class="subtitle">Forgot Password?</a></div>
                 </div>

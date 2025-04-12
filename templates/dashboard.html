@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} Dashboard {% endblock %}</title>
+    <link rel="icon" href="{{ url_for('static', filename='logo.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
+    {% block style %} 
+        <style>
+
+        </style>
+    {% endblock %}
+</head>
+<body>
+    <div class="page"> 
+        <div class="page__fixed"><div class="page__head">
+            <div class="logo">
+                <img src="/static/logo.png" alt="logo" class="logo__image">
+                <h1 class="logo__text"> TrashCash</h1>
+            </div>
+            <div class="menu">
+                <div class="menu__item">
+                    <a href="/" class="link">Dashboard</a>
+                </div>
+                <div class="menu__item">
+                    <a href="aboutus" class="link">About us</a>
+                </div>
+                <div class="menu__item">
+                    <a href="logout" class="link">logout</a>
+                </div> 
+            </div>
+            <div class="menu">
+                <div class="menu__image">
+                    
+                </div>
+                <div class="menu__item">
+                    <div class="menu__title">Welcome</div>
+                    <div class="menu__subtitle">Recycler</div>
+                </div>
+            </div>
+            <div onclick="handleMobile()" class="hamburger">
+                <img class="icon" src="{{ url_for('static', filename='more.png') }}" alt="">
+            </div>
+            <div class="popup" id="popup">
+                <div class="popup__row" onclick="cross()">
+                    <img class="cross" src="{{ url_for('static', filename='cross.png') }}" alt="">
+                </div>
+                <div class="popup__row" onclick="dash()">Dashboard</div>
+                <div class="popup__row" onclick="abou()">About us</div>
+                <div class="popup__row" onclick="log()">Logout</div>
+            </div>
+        </div></div>
+        <div class="page__body">
+            {% block page__body %}
+            <div class="section">
+                <div class="section__head">
+                    <h2>Dashboard</h2>
+                </div>
+                <div class="section__body">
+                    <a href="address" class="tile link">
+                        <div class="tile__text">
+                            <img src="{{ url_for('static', filename='address.png') }}" alt="">
+                            <h3 class="tile__title">Address</h3>
+                        </div>
+                    </a>
+                    <a href="/schedule" class="tile link">
+                        <div class="tile__text">
+                            <img src="{{ url_for('static', filename='event.png') }}" alt="">
+                            <h3 class="tile__title">Schedule</h3>
+                        </div>
+                    </a>
+                    <a href="track" class="tile link">
+                        <div class="tile__text">
+                            <img src="{{ url_for('static', filename='tracking.png') }}" alt="">
+                            <h3 class="tile__title">Track</h3>
+                        </div>
+                    </a>
+                    <a href="history" class="tile link">
+                        <div class="tile__text">
+                            <img src="{{ url_for('static', filename='history.png') }}" alt="">
+                            <h3 class="tile__title">History</h3>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="section">
+                <div class="section__head">
+                    <h2>Activity</h2>
+                </div>
+                <div class="section__body flex--col">
+                    <div class="list">
+                        <div class="list__image">
+                            <img src="{{ url_for('static', filename='checklogo.png') }}" alt="">
+                        </div>
+                        <div class="list__text">
+                            <h3 class="list__title">Welcome User: You have success fully signup</h3>
+                            <div class="list__subtitle">1 hour ago</div>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div class="list__image">
+                            <img src="{{ url_for('static', filename='checklogo.png') }}" alt="">
+                        </div>
+                        <div class="list__text">
+                            <h3 class="list__title">Welcome back User: You have success fully login</h3>
+                            <div class="list__subtitle">1 min ago</div>
+                        </div>
+                    </div>
+                    <div class="list">
+                        <div class="list__image">
+                            <img src="{{ url_for('static', filename='checklogo.png') }}" alt="">
+                        </div>
+                        <div class="list__text">
+                            <h3 class="list__title">Welcome User: You have success fully signup</h3>
+                            <div class="list__subtitle">1 hour ago</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="section">
+                <div class="section__head">
+                    <h2>Price Chart</h2>
+                </div>
+                <div class="section__body" id="item-list">
+                    <div class="card">
+                        <div class="card__image">
+                            <div class="card__image">
+                                <img src="{{ url_for('static', filename='rupee.png') }}" alt="">
+                            </div>
+                        </div>
+                        <div class="card__text">
+                            <h3 class="card__title">Steel / Iron</h3>
+                            <div class="card__subtitle">30 rupees per kg</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card__image">
+                            <div class="card__image">
+                                <img src="{{ url_for('static', filename='rupee.png') }}" alt="">
+                            </div>
+                        </div>
+                        <div class="card__text">
+                            <h3 class="card__title">E-waste Computer</h3>
+                            <div class="card__subtitle">43 rupees per kg</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card__image">
+                            <div class="card__image">
+                                <img src="{{ url_for('static', filename='rupee.png') }}" alt="">
+                            </div>
+                        </div>
+                        <div class="card__text">
+                            <h3 class="card__title">Paper</h3>
+                            <div class="card__subtitle">25 rupees per kg</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card__image">
+                            <div class="card__image">
+                                <img src="{{ url_for('static', filename='rupee.png') }}" alt="">
+                            </div>
+                        </div>
+                        <div class="card__text">
+                            <h3 class="card__title">Plastic</h3>
+                            <div class="card__subtitle">21 rupees per kg</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card__image">
+                            <div class="card__image">
+                                <img src="{{ url_for('static', filename='rupee.png') }}" alt="">
+                            </div>
+                        </div>
+                        <div class="card__text">
+                            <h3 class="card__title">Plastic Thermosetting</h3>
+                            <div class="card__subtitle">32 rupees per kg</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card__image">
+                            <div class="card__image">
+                                <img src="{{ url_for('static', filename='rupee.png') }}" alt="">
+                            </div>
+                        </div>
+                        <div class="card__text">
+                            <h3 class="card__title">Paper</h3>
+                            <div class="card__subtitle">25 rupees per kg</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card__image">
+                            <div class="card__image">
+                                <img src="{{ url_for('static', filename='rupee.png') }}" alt="">
+                            </div>
+                        </div>
+                        <div class="card__text">
+                            <h3 class="card__title">Plastic</h3>
+                            <div class="card__subtitle">21 rupees per kg</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card__image">
+                            <div class="card__image">
+                                <img src="{{ url_for('static', filename='rupee.png') }}" alt="">
+                            </div>
+                        </div>
+                        <div class="card__text">
+                            <h3 class="card__title">Plastic Thermosetting</h3>
+                            <div class="card__subtitle">32 rupees per kg</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card__image">
+                            <div class="card__image">
+                                <img src="{{ url_for('static', filename='rupee.png') }}" alt="">
+                            </div>
+                        </div>
+                        <div class="card__text">
+                            <h3 class="card__title">Plastic</h3>
+                            <div class="card__subtitle">21 rupees per kg</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card__image">
+                            <img src="{{ url_for('static', filename='rupee.png') }}" alt="">
+                        </div>
+                        <div class="card__text">
+                            <h3 class="card__title">Plastic Thermosetting</h3>
+                            <div class="card__subtitle">32 rupees per kg</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endblock %}
+        </div>
+        <div class="page__footer">
+            
+        </div>
+    </div>
+
+    <script>
+        function handleMobile() {
+            console.log("in");
+            document.getElementById("popup").style.display = "flex";
+        }
+        function cross() {
+            document.getElementById("popup").style.display = "none";
+        }
+
+        function dash() {
+            cross();
+            window.location.href = "/";
+        }
+
+        function abou() {
+            cross();
+            window.location.href = "/aboutus";
+        }
+
+        function log() {
+            cross();
+            window.location.href = "/logout";
+        }
+    </script>
+
+    {% block js %}
+    <script>
+let appState = {
+    user: null,
+    role: null,
+    addresses: [],
+    pickups: [],
+    items: []  
+};
+
+async function load() {
+    try {
+        const response = await fetch('/load');
+        const data = await response.json();
+        appState.items = data.items;
+        appState.pickups = data.pickups;
+        appState.addresses = data.addresses;
+        appState.user = data.user;
+        // appState.role = data.role;
+        updateItemList(data.items);
+    } catch (error) {
+        console.error('Failed to load items:', error);
+    }
+}
+
+function updateItemList(items) {
+    const container = document.getElementById('item-list');
+
+    container.innerHTML = items.map(item => `
+        <div class="card">
+            <div class="card__image">
+                <div class="card__image">
+                    <img src="{{ url_for('static', filename='rupee.png') }}" alt="">
+                </div>
+            </div>
+            <div class="card__text">
+                <h3 class="card__title">${item.name}</h3>
+                <div class="card__subtitle">${item.volume_per_kg} rupees per kg</div>
+            </div>
+        </div>
+    `).join('');
+}
+
+    window.addEventListener('DOMContentLoaded', () => {
+        load();
+    });
+
+    </script>
+    {% endblock %}
+</body>
+</html>

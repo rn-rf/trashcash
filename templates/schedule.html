@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {{title}} {% endblock %}</title>
+    <link rel="icon" href="{{ url_for('static', filename='logo.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
+    <style>
+
+.form-container {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 30px;
+    max-width: 700px;
+    margin: auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .form-title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    font-weight: bold;
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  label {
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+
+  input, select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1rem;
+  }
+
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 30px;
+    gap: 15px;
+  }
+
+  @media (max-width: 600px) {
+    .form-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .form-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
+    </style>
+</head>
+<body>
+    <div class="page">
+      <div class="page__fixed"><div class="page__head">
+          <div class="logo">
+              <img src="/static/logo.png" alt="logo" class="logo__image">
+              <h1 class="logo__text"> TrashCash</h1>
+          </div>
+          <div class="menu">
+              <div class="menu__item">
+                  <a href="/" class="link">Dashboard</a>
+              </div>
+              <div class="menu__item">
+                  <a href="aboutus" class="link">About us</a>
+              </div>
+              <div class="menu__item">
+                  <a href="logout" class="link">logout</a>
+              </div> 
+          </div>
+          <div class="menu">
+              <div class="menu__image">
+                  
+              </div>
+              <div class="menu__item">
+                  <div class="menu__title">Welcome</div>
+                  <div class="menu__subtitle">Recycler</div>
+              </div>
+          </div>
+          <div onclick="handleMobile()" class="hamburger">
+              <img class="icon" src="{{ url_for('static', filename='more.png') }}" alt="">
+          </div>
+          <div class="popup" id="popup">
+              <div class="popup__row" onclick="cross()">
+                  <img class="cross" src="{{ url_for('static', filename='cross.png') }}" alt="">
+              </div>
+              <div class="popup__row" onclick="dash()">Dashboard</div>
+              <div class="popup__row" onclick="abou()">About us</div>
+              <div class="popup__row" onclick="log()">Logout</div>
+          </div>
+      </div></div>
+        <div class="page__body">
+
+            <div class="section">
+                <div class="section__head">
+                    <h2>Pickup</h2>
+                </div>
+                <div class="section__body--no-flex ">
+                  <div class="list--">
+                    <form id="form">
+                        <div class="form-grid">
+                          <div class="form-group">
+                            <label for="from-date">From Date</label>
+                            <input type="date" id="from-date" name="from-date" required>
+                          </div>
+                          <div class="form-group">
+                            <label for="till-date">Till Date</label>
+                            <input type="date" id="till-date" name="till-date" required>
+                          </div>
+                          <div class="form-group">
+                            <label for="from-time">From Time</label>
+                            <input type="time" id="from-time" name="from-time" required>
+                          </div>
+                          <div class="form-group">
+                            <label for="from-time">Till Time</label>
+                            <input type="time" id="till-time" name="from-till" required>
+                          </div>
+                          <div class="form-group">
+                            <label for="item">Item</label>
+                            <select id="item" name="item"  required>
+                              <option value="">Select Item</option>
+                            </select>
+                          </div>
+                          <div class="form-group">
+                            <label for="address">Address</label>
+                            <select id="address" name="address" required>
+                              <option value="">Select Address</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-actions">
+                          <button type="button"  class="button--mono bold"><a class="link" href="address">Address</a></button>
+                          <button type="submit" class="button bold">Submit</button>
+                        </div>
+                      </form>
+                    </div>    
+                </div>
+            </div>
+            <div class="section">
+              <div class="section__head">
+                  <h2>Pickup List</h2>
+              </div>
+              <div class="section__body">
+                <div class="list scrollable-div" id="address_list">
+                    No Pickup Here
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="page__footer">
+
+        </div>
+    </div>
+    <script>
+      function handleMobile() {
+          console.log("in");
+          document.getElementById("popup").style.display = "flex";
+      }
+      function cross() {
+          document.getElementById("popup").style.display = "none";
+      }
+
+      function dash() {
+          cross();
+          window.location.href = "/";
+      }
+
+      function abou() {
+          cross();
+          window.location.href = "/aboutus";
+      }
+
+      function log() {
+          cross();
+          window.location.href = "/logout";
+      }
+  </script>
+    <script>
+let appState = {
+    user: null,
+    role: null,
+    addresses: [],
+    pickups: [],
+    items: []  
+}
+
+async function load() {
+    try {
+        const response = await fetch('/load');
+        const data = await response.json();
+        appState.items = data.items;
+        appState.pickups = data.pickups;
+        appState.addresses = data.addresses;
+        appState.user = data.user;
+        // appState.role = data.role;
+        render(); 
+    } catch (error) {
+        console.error('Failed to load items:', error);
+    }
+}
+   
+window.addEventListener('DOMContentLoaded', () => {
+    load();
+});
+
+function render(){
+  let selectElement = document.getElementById("item");
+
+  appState.items.forEach(item => {
+    const option = document.createElement("option");
+    option.value = item.name;
+    option.textContent = item.name;
+    selectElement.appendChild(option);
+  });
+
+  selectElement = document.getElementById("address");
+
+  appState.addresses.forEach(item => {
+    const option = document.createElement("option");
+    option.value = item.id;
+    option.textContent = item.street;
+    selectElement.appendChild(option);
+  });
+
+  renderTable();
+}
+
+document.getElementById('form').addEventListener("submit", function (e) {
+    e.preventDefault();
+    const fdate = document.getElementById('from-date').value;
+    const tdate = document.getElementById('till-date').value;
+    const ftime = document.getElementById('from-time').value;
+    const ttime = document.getElementById('till-time').value;
+    const address = document.getElementById('address').value;
+    const item = document.getElementById('item').value;
+
+
+    fetch("/create_pickup", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ 'date_start': fdate, 'date_end': tdate, 'time_start': ftime, 'time_end': ttime, 'address_id': address, 'items': item })
+    })
+    .then(res => res.json())
+    .then(response => {
+        alert(response.message || "Address Added successful!");
+        form.reset();
+        load();
+    })
+    .catch(error => {
+        console.error("Signup error:", error);
+        alert("An error occurred during adding address.");
+    });
+
+});
+
+function renderTable() {
+  const pickups = appState.pickups;
+  console.log(pickups)
+  const container = document.getElementById('address_list');
+  
+  const tableHTML = `
+  <table class="address-table">
+    <thead>
+      <tr>
+        <th>Pickup ID</th>
+        <th>Address ID</th>
+        <th>Items</th>
+        <th>Pickup Date Range</th>
+        <th>Pickup Time</th>
+        <th>Status</th>
+        <th>Created At</th>
+      </tr>
+    </thead>
+    <tbody>
+      ${pickups.map(pickup => `
+        <tr>
+          <td>${pickup.id}</td>
+          <td>${pickup.address_id}</td>
+          <td>${pickup.items.join(', ')}</td>
+          <td>${pickup.scheduled_date_start} to ${pickup.scheduled_date_end}</td>
+          <td>${pickup.scheduled_time_start} - ${pickup.scheduled_time_end}</td>
+          <td class="status-${pickup.status.toLowerCase()}">${pickup.status}</td>
+          <td>${pickup.created_at}</td>
+        </tr>
+      `).join('')}
+    </tbody>
+  </table>
+  `;
+
+  container.innerHTML = tableHTML;
+}
+</script>
+</body>
+</html>

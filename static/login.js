@@ -20,7 +20,7 @@ form.addEventListener("submit", function (e) {
     .then(response => {
         alert(response.message || "Login successful!");
         form.reset();
-        window.location.href = "/dashboard"; 
+        window.location.href = "/"; 
     })
     .catch(error => {
         console.error("Login error:", error);

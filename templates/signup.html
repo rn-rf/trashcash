@@ -12,7 +12,7 @@
             font-family: Arial, Helvetica, sans-serif;
         }
         body {
-            min-height: 100vh;
+            min-height: 100dvh;
         }
         .body-wrapper {
             display: flex;
@@ -21,11 +21,11 @@
             flex: 2;
             cursor: pointer;
             background-color: #000;
-            min-height: 100vh;
+            min-height: 100dvh;
         }
         .main {
             flex: 3;
-            min-height: 100vh;
+            min-height: 100dvh;
         }
         .Sign-up {
             max-width: 400px;
@@ -86,7 +86,14 @@
             color: #999;
             text-decoration: none;
         }
-
+        @media (max-width: 600px) {
+            .aside {
+                display: none;
+            }
+            .main {
+                padding: 5vw;
+            }
+        }
     </style>
 </head>
 <body>
@@ -100,20 +107,19 @@
                 </div>
                 <div class="input-wrapper">
                     <div class="input-title">Username</div>
-                    <input type="text" id="username" placeholder="username@gmail.com">
+                    <input type="email" id="username" placeholder="username@gmail.com">
                 </div>
                 <div class="input-wrapper">
                     <div class="input-title">Password</div>
                     <input type="password" id="password" placeholder=". . . . . . . . . . . .">
                 </div>
-                <!-- <div class="options">
+                <div class="options">
                     <div class="option-child flex">
-                        <input type="checkbox">
-                        <label for="">&nbsp;Remember&nbsp;me</label>
+                        <input id="remember-me" type="checkbox">
+                        <label for="">&nbsp;as&nbsp;collector</label>
                     </div>
                     <div class="spacer"></div>
-                    <div class="option-child"><a href="Sign-up.html" class="subtitle">Forgot Password?</a></div>
-                </div> -->
+                </div>
                 <button class="button">
                     <div class="text">Sign up</div>
                 </button>

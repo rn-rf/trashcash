@@ -1,0 +1,134 @@
+{% extends 'dashboard.html' %}
+
+{% block title %}
+
+    History
+
+{% endblock %}
+
+{% block page__body %}
+
+<div class="section">
+    <div class="section__head">
+        <h2>Pickup History</h2>
+    </div>
+    <div class="section__body">
+        <div class="list scrollable-div" id="pickup_list">
+            No Activity yet . . . 
+        </div>
+    </div>
+</div>
+
+<div class="section">
+    <div class="section__head">
+        <h2>Address History</h2>
+    </div>
+    <div class="section__body">
+      <div class="list scrollable-div" id="address_list">
+          No Address Added
+      </div>
+    </div>
+  </div>
+
+<script>
+    let appState = {
+        user: null,
+        role: null,
+        addresses: [],
+        pickups: [],
+        items: []  
+    }
+    
+    async function load() {
+        try {
+            const response = await fetch('/load');
+            const data = await response.json();
+            appState.items = data.items;
+            appState.pickups = data.pickups;
+            appState.addresses = data.addresses;
+            appState.user = data.user;
+            // appState.role = data.role;
+            renderTable();
+            renderAddressTable();
+        } catch (error) {
+            console.error('Failed to load items:', error);
+        }
+    }
+       
+    window.addEventListener('DOMContentLoaded', () => {
+        load();
+    });
+
+
+    function renderAddressTable() {
+    const addresses = appState.addresses;
+    const container = document.getElementById('address_list');
+    
+    const tableHTML = `
+        <table class="address-table">
+        <thead>
+            <tr>
+            <th>Name</th>
+            <th>Street</th>
+            <th>Pincode</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Account Type</th>
+            </tr>
+        </thead>
+        <tbody>
+            ${addresses.map(address => `
+            <tr>
+                <td>${address.name}</td>
+                <td>${address.street}</td>
+                <td>${address.pincode}</td>
+                <td>${address.email}</td>
+                <td>${address.phone_number}</td>
+                <td>${address.role}</td>
+            </tr>
+            `).join('')}
+        </tbody>
+        </table>
+    `;
+
+    container.innerHTML = tableHTML;
+    }
+
+    function renderTable() {
+      const pickups = appState.pickups;
+      console.log(pickups)
+      const container = document.getElementById('pickup_list');
+      
+      const tableHTML = `
+      <table class="address-table">
+        <thead>
+          <tr>
+            <th>Pickup ID</th>
+            <th>Address ID</th>
+            <th>Items</th>
+            <th>Pickup Date Range</th>
+            <th>Pickup Time</th>
+            <th>Status</th>
+            <th>Created At</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${pickups.map(pickup => `
+            <tr>
+              <td>${pickup.id}</td>
+              <td>${pickup.address_id}</td>
+              <td>${pickup.items.join(', ')}</td>
+              <td>${pickup.scheduled_date_start} to ${pickup.scheduled_date_end}</td>
+              <td>${pickup.scheduled_time_start} - ${pickup.scheduled_time_end}</td>
+              <td class="status-${pickup.status.toLowerCase()}">${pickup.status}</td>
+              <td>${pickup.created_at}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+      `;
+    
+      container.innerHTML = tableHTML;
+    }
+    </script>
+{% endblock %}
